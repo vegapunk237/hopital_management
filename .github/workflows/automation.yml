@@ -1,0 +1,47 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Étape de construction de Gestion des patients
+      - name: Build and push microservice_gestion_patients
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_HUB_TOKEN }}
+        run: |
+          cd GestionPatients/GestionPatients
+          docker build -t noubissie237/microservice_gestion_patients:latest .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push noubissie237/microservice_gestion_patients:latest
+
+      # Étape de construction de Gestion du personnel
+      - name: Build and push microservice_gestion_personnel
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_HUB_TOKEN }}
+        run: |
+          cd GestionPersonnel/GestionPersonnel
+          docker build -t noubissie237/microservice_gestion_personnel:latest .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push noubissie237/microservice_gestion_personnel:latest
+
+      # Étape de construction de la pharmacie
+      - name: Build and push microservice_gestion_pharmacie
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.MY_DOCKER_HUB_TOKEN }}
+        run: |
+          cd StockManagment/StockManagment
+          docker build -t noubissie237/microservice_gestion_pharmacie:latest .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push noubissie237/microservice_gestion_pharmacie:latest

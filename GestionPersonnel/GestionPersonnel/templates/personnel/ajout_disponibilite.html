@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<br><br><br><br>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <input name="name" hidden type="text" class="form-control" id="name" placeholder="name" value="{{user.Specialite}}">
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="date"> Date </label>
+            <input name="date" required type="date" class="form-control" id="date" placeholder="date">
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="time"> Heure </label>
+            <input name="time" required type="time" class="form-control" id="time" placeholder="time">
+        </div>
+
+    </div>
+    <br><br><br><br>
+
+    <button type="submit" class="btn btn-primary"> Enregistrer</button>
+    <br>
+
+    <div>
+        <table class="table table-striped table-dark">
+           <thead>
+              <tr>
+                 <th scope="col">No</th>
+                 <th scope="col">NOM</th>
+                 <th scope="col">PRENOM</th>
+                 <th scope="col">DATE</th>
+                 <th scope="col">HEURE</th>
+                 <th scope="col">MESSAGE</th>
+                 <th scope="col">OPTIONS</th>
+              </tr>
+           </thead>
+           <tbody id="myTable">
+              {% for doc in patient_list %}
+              <tr>
+                 <th scope="row">{{ doc.id }}</th>
+                 <td>{{doc.nom}}</td>
+                 <td>{{doc.prenom}}</td>
+                 <td>{{doc.date}}</td>
+                 <td>{{doc.heure}}</td>
+                 <td>{{doc.message}}</td>
+                 <td>
+                    <a href="" title="Detail" class="badge text-white bg-success">View</a>
+     
+                    <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
+                       class="badge text-white bg-danger" title="Supprimer" data-id="{{ doc.pk }}"
+                       data-customer="{{doc.nom}}">Delete
+                    </button>
+     
+                    <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
+                       data-id="{{doc.pk }}" data-customer="{{doc.nom}}"
+                       class="badge text-dark bg-warning"> Modify
+                    </button>
+                 </td>
+              </tr>
+     
+              {% endfor %}
+
+    <br><br><br>
+</form>
+
+{% endblock content %}

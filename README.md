@@ -42,3 +42,4 @@ L'application utilise les technologies suivantes :
 **- Framework Backend** : _DJANGO_ <br>
 **- Base de Données** : _SQLite_ <br>
 # hopital_management
+# hopital_management

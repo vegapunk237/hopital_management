@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  gestionpatient:
+    build: 
+      context: ./GestionPatients/GestionPatients
+    ports:
+      - "8001:8001"
+    networks:
+      - hospitalnetwork
+    volumes:
+      - ./GestionPatients/GestionPatients:/app
+
+  gestionpersonnel:
+    build: 
+      context: ./GestionPersonnel/GestionPersonnel
+    ports:
+      - "8000:8000"
+    networks:
+      - hospitalnetwork
+    volumes:
+      - ./GestionPersonnel/GestionPersonnel:/app
+
+  stockmanagment:
+    build: 
+      context: ./StockManagment/StockManagment
+    ports:
+      - "8002:8002"
+    networks:
+      - hospitalnetwork
+    volumes:
+      - ./StockManagment/StockManagment:/app
+
+  patientso:
+    build: 
+      context: ./patient_so
+    ports:
+      - "8003:8003"
+    networks:
+      - hospitalnetwork
+    volumes:
+      - ./patient_so:/app
+
+networks:
+  hospitalnetwork:
